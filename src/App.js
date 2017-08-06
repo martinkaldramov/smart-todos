@@ -44,7 +44,7 @@ class Plan extends Component{
 class App extends Component {
   render() {
     return (
-      <Header />
+      <Plan />
     );
   }
 }
