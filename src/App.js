@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 
 class AddItem extends Component{
@@ -39,6 +38,25 @@ class Plan extends Component{
       </div>
     )
   }
+}
+
+class todoItem extends Component{
+  render(){
+    return(
+      
+    )
+  }
+}
+
+class List extends Component{
+  render(){
+    return(
+      <div>
+        <Plan />
+	
+      </div> 
+    )
+  }  
 }
 
 class App extends Component {
