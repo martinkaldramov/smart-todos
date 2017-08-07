@@ -5,7 +5,7 @@ class AddItem extends Component{
   render(){
     return(
       <div id="addItem">
-        <input placeholder="Enter Item Name" />
+        <input placeholder="Enter Item Name" onChange={this.props.updateValue} />
 	<button>Add</button>
       </div>
     )
@@ -17,7 +17,7 @@ class Header extends Component{
     return(
       <div>
         <h1>My Todos List</h1>
-	<AddItem />
+	<AddItem updateValue={this.props.updateValue} />
       </div>
     )
   }
@@ -27,7 +27,7 @@ class Plan extends Component{
   render(){
     return (
       <div>
-        <Header />
+        <Header updateValue={this.props.updateValue} />
 	<p>Choose your goal to generate todos plan</p>
         <select>
           <option value="" disabled selected hidden>Select a Plan</option>
@@ -58,7 +58,7 @@ class List extends Component{
     const todos = this.props.todos;
     return(
       <div>
-         <Plan />
+         <Plan updateValue={this.props.updateValue} />
 	 {todos.map((item, index) => <TodoItem key={index} name={item.name} />)}
       </div> 
     )
@@ -66,6 +66,18 @@ class List extends Component{
 }
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      value: ""
+    }
+  }
+
+  updateValue(e){
+    console.log("working");
+    this.setState({valie: e.target.value});
+  }
+
   render() {
     const todos = [
       {name: "Wake up"},
@@ -74,7 +86,10 @@ class App extends Component {
       {name: "Go to work"}
     ]
     return (
-      <List todos={todos} />
+      <div>
+        <List todos={todos} updateValue={this.updateValue.bind(this)} />
+        <p>{this.state.value}</p>
+      </div>
     );
   }
 }
