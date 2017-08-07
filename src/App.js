@@ -69,27 +69,28 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      value: ""
+      value: "",
+      todos: [
+        {name: "Wake up"},
+        {name: "Take a shower"},
+        {name: "Eat breakfast"},
+        {name: "Go to work"}
+      ] 
     }
   }
 
   updateValue(e){
     console.log("working");
-    this.setState({valie: e.target.value});
+    this.setState({value: e.target.value});
+  }
+
+  addItem(){
+   this.sta.todos.push({name: this.state.value})
   }
 
   render() {
-    const todos = [
-      {name: "Wake up"},
-      {name: "Take a shower"},
-      {name: "Eat breakfast"},
-      {name: "Go to work"}
-    ]
     return (
-      <div>
-        <List todos={todos} updateValue={this.updateValue.bind(this)} />
-        <p>{this.state.value}</p>
-      </div>
+      <List todos={this.state.todos} updateValue={this.updateValue.bind(this)} />
     );
   }
 }
