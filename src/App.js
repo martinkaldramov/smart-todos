@@ -40,20 +40,26 @@ class Plan extends Component{
   }
 }
 
-class todoItem extends Component{
+class TodoItem extends Component{
   render(){
     return(
-      
+      <div>
+        <p>{this.props.name}</p>
+	<button>Edit</button>
+	<button>Delete</button>
+	<button>Complete</button>
+      </div> 
     )
   }
 }
 
 class List extends Component{
   render(){
+    const todos = this.props.todos;
     return(
       <div>
-        <Plan />
-	
+         <Plan />
+	 {todos.map((item, index) => <TodoItem key={index} name={item.name} />)}
       </div> 
     )
   }  
@@ -61,8 +67,14 @@ class List extends Component{
 
 class App extends Component {
   render() {
+    const todos = [
+      {name: "Wake up"},
+      {name: "Take a shower"},
+      {name: "Eat breakfast"},
+      {name: "Go to work"}
+    ]
     return (
-      <Plan />
+      <List todos={todos} />
     );
   }
 }
