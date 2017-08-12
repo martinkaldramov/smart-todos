@@ -5,8 +5,8 @@ class AddItem extends Component{
   render(){
     return(
       <div id="addItem">
-        <input placeholder="Enter Item Name" onChange={this.props.updateValue} />
-	<button>Add</button>
+        <input placeholder="Enter Item Name" value={this.props.value} onChange={this.props.updateValue} />
+	<button onClick={this.props.addItem}>Add</button>
       </div>
     )
   }
@@ -33,7 +33,7 @@ class Header extends Component{
     return(
       <div>
         <h1>My Todos List</h1>
-	<AddItem updateValue={this.props.updateValue} />
+	<AddItem value={this.props.value} updateValue={this.props.updateValue} addItem={this.props.addItem} />
         <Plan />
       </div>
     )
@@ -84,13 +84,16 @@ class App extends Component {
   }
 
   addItem(){
-   this.state.todos.push({name: this.state.value})
+    console.log(this.state.value);
+    this.state.todos.unshift({name: this.state.value});
+    this.setState({value: ""});
+    //this.state.todos.push({name: this.state.value})
   }
 
   render() {
     return (
       <div>
-        <Header updateValue = {this.updateValue.bind(this)} />
+        <Header value={this.state.value} updateValue={this.updateValue.bind(this)} addItem={this.addItem.bind(this)} />
         <List todos={this.state.todos} />
       </div>
     );
