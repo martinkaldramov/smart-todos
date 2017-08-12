@@ -5,7 +5,10 @@ class AddItem extends Component{
   render(){
     return(
       <div id="addItem">
-        <input placeholder="Enter Item Name" value={this.props.value} onChange={this.props.updateValue} />
+        <input 
+	   placeholder="Enter Item Name" 
+           value={this.props.value} 
+	   onChange={this.props.updateValue} />
 	<button onClick={this.props.addItem}>Add</button>
       </div>
     )
@@ -33,7 +36,10 @@ class Header extends Component{
     return(
       <div>
         <h1>My Todos List</h1>
-	<AddItem value={this.props.value} updateValue={this.props.updateValue} addItem={this.props.addItem} />
+	<AddItem 
+	   value={this.props.value} 
+	   updateValue={this.props.updateValue} 
+	   addItem={this.props.addItem} />
         <Plan />
       </div>
     )
@@ -46,7 +52,7 @@ class TodoItem extends Component{
       <div>
         <p>{this.props.name}</p>
 	<button>Edit</button>
-	<button>Delete</button>
+	<button onClick={() => this.props.removeItem(this.props.id)}>Delete</button>
 	<button>Complete</button>
       </div> 
     )
@@ -58,7 +64,11 @@ class List extends Component{
     const todos = this.props.todos;
     return(
       <div>
-	 {todos.map((item, index) => <TodoItem key={index} name={item.name} />)}
+	 {todos.map((item, index) => <TodoItem 
+	  				key={index} 
+					id={index} 
+					name={item.name} 
+					removeItem={this.props.removeItem} />)}
       </div> 
     )
   }  
@@ -90,11 +100,21 @@ class App extends Component {
     //this.state.todos.push({name: this.state.value})
   }
 
+  removeItem(index){
+    this.state.todos.splice(index,1);
+    this.forceUpdate();
+  }
+
   render() {
     return (
       <div>
-        <Header value={this.state.value} updateValue={this.updateValue.bind(this)} addItem={this.addItem.bind(this)} />
-        <List todos={this.state.todos} />
+        <Header 
+	   value={this.state.value} 
+	   updateValue={this.updateValue.bind(this)} 
+	   addItem={this.addItem.bind(this)} />
+        <List 
+	   todos={this.state.todos} 
+	   removeItem={this.removeItem.bind(this)}/>
       </div>
     );
   }
