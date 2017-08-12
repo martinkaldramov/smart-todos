@@ -53,7 +53,7 @@ class TodoItem extends Component{
         <p>{this.props.name}</p>
 	<button>Edit</button>
 	<button onClick={() => this.props.removeItem(this.props.id)}>Delete</button>
-	<button>Complete</button>
+	<button onClick={() => this.props.completeItem(this.props.id)}>Complete</button>
       </div> 
     )
   }
@@ -68,7 +68,33 @@ class List extends Component{
 	  				key={index} 
 					id={index} 
 					name={item.name} 
-					removeItem={this.props.removeItem} />)}
+					removeItem={this.props.removeItem} 
+					completeItem={this.props.completeItem}/>)}
+      </div> 
+    )
+  }  
+}
+
+class CompletedItem extends Component{
+  render(){
+    return(
+      <div>
+       <s><p>{this.props.name}</p></s>
+	<button>Not Completed</button>
+      </div> 
+    )
+  }
+}
+
+class Completed extends Component{
+  render(){
+    const completed = this.props.completed;
+    return(
+      <div>
+	 {completed.map((item, index) => <CompletedItem
+	  				key={index} 
+					id={index} 
+					name={item.name} />)}
       </div> 
     )
   }  
@@ -80,16 +106,17 @@ class App extends Component {
     this.state = {
       value: "",
       todos: [
-        {name: "Wake up"},
-        {name: "Take a shower"},
-        {name: "Eat breakfast"},
-        {name: "Go to work"}
+        {name: "First Todo Item"},
+        {name: "Second Todo Item"},
+      ],
+      completed: [
+        {name: "Woke Up"},
+	{name: "Brushed My Teeth"}
       ] 
     }
   }
 
   updateValue(e){
-    console.log(this.state.value);
     this.setState({value: e.target.value});
   }
 
@@ -105,6 +132,13 @@ class App extends Component {
     this.forceUpdate();
   }
 
+  completeItem(index){
+    var completedItem = this.state.todos.splice(index, 1);
+    console.log(completedItem);
+    this.state.completed.unshift({name: completedItem[0].name});
+    this.forceUpdate();
+  }
+
   render() {
     return (
       <div>
@@ -114,7 +148,9 @@ class App extends Component {
 	   addItem={this.addItem.bind(this)} />
         <List 
 	   todos={this.state.todos} 
-	   removeItem={this.removeItem.bind(this)}/>
+	   removeItem={this.removeItem.bind(this)}
+	   completeItem={this.completeItem.bind(this)}/>
+	<Completed completed={this.state.completed} />
       </div>
     );
   }
