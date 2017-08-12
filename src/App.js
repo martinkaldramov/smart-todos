@@ -12,22 +12,10 @@ class AddItem extends Component{
   }
 }
 
-class Header extends Component{
-  render(){
-    return(
-      <div>
-        <h1>My Todos List</h1>
-	<AddItem updateValue={this.props.updateValue} />
-      </div>
-    )
-  }
-}
-
 class Plan extends Component{
   render(){
     return (
       <div>
-        <Header updateValue={this.props.updateValue} />
 	<p>Choose your goal to generate todos plan</p>
         <select>
           <option value="" disabled selected hidden>Select a Plan</option>
@@ -35,6 +23,18 @@ class Plan extends Component{
           <option value="learnWebdev">Learn WebDev</option>
           <option value="etc..">etc...</option>
         </select>
+      </div>
+    )
+  }
+}
+
+class Header extends Component{
+  render(){
+    return(
+      <div>
+        <h1>My Todos List</h1>
+	<AddItem updateValue={this.props.updateValue} />
+        <Plan />
       </div>
     )
   }
@@ -58,7 +58,6 @@ class List extends Component{
     const todos = this.props.todos;
     return(
       <div>
-         <Plan updateValue={this.props.updateValue} />
 	 {todos.map((item, index) => <TodoItem key={index} name={item.name} />)}
       </div> 
     )
@@ -80,17 +79,20 @@ class App extends Component {
   }
 
   updateValue(e){
-    console.log("working");
+    console.log(this.state.value);
     this.setState({value: e.target.value});
   }
 
   addItem(){
-   this.sta.todos.push({name: this.state.value})
+   this.state.todos.push({name: this.state.value})
   }
 
   render() {
     return (
-      <List todos={this.state.todos} updateValue={this.updateValue.bind(this)} />
+      <div>
+        <Header updateValue = {this.updateValue.bind(this)} />
+        <List todos={this.state.todos} />
+      </div>
     );
   }
 }
