@@ -47,13 +47,30 @@ class Header extends Component{
 }
 
 class TodoItem extends Component{
+  renderItem(isEdited){
+    if(isEdited){
+      return(
+	<div>
+	<input />
+	<button>Update</button>
+	<button>Cancel</button>
+	</div>
+      );
+    }else{
+      return(
+	<div>
+	<p>this.props.name</p>
+	<button onClick={() => this.props.editItem(this.props.id)}>Edit</button>
+	<button onClick={() => this.props.removeItem(this.props.id)}>Delete</button>
+	<button onClick={() => this.props.completeItem(this.props.id)}>Complete</button>
+	</div>
+      );
+    }
+  }
   render(){
     return(
       <div>
-        <p>{this.props.name}</p>
-	<button>Edit</button>
-	<button onClick={() => this.props.removeItem(this.props.id)}>Delete</button>
-	<button onClick={() => this.props.completeItem(this.props.id)}>Complete</button>
+	{this.renderItem(this.props.isEdited)}
       </div> 
     )
   }
@@ -68,6 +85,8 @@ class List extends Component{
 	  				key={index} 
 					id={index} 
 					name={item.name} 
+					editItem={this.props.editItem}
+					isEdited={item.isEdited}
 					removeItem={this.props.removeItem} 
 					completeItem={this.props.completeItem}/>)}
       </div> 
@@ -106,13 +125,13 @@ class App extends Component {
     this.state = {
       value: "",
       todos: [
-        {name: "First Todo Item"},
-        {name: "Second Todo Item"},
+        {name: "First Todo Item", isEdited: false},
+        {name: "Second Todo Item", isEdited: false},
       ],
       completed: [
         {name: "Woke Up"},
 	{name: "Brushed My Teeth"}
-      ] 
+      ]
     }
   }
 
@@ -122,7 +141,7 @@ class App extends Component {
 
   addItem(){
     console.log(this.state.value);
-    this.state.todos.unshift({name: this.state.value});
+    this.state.todos.unshift({name: this.state.value, isEdited: false});
     this.setState({value: ""});
     //this.state.todos.push({name: this.state.value})
   }
@@ -139,6 +158,11 @@ class App extends Component {
     this.forceUpdate();
   }
 
+  editItem(index){
+    this.state.todos[index].isEdited = true;
+    this.forceUpdate();
+  }
+
   render() {
     return (
       <div>
@@ -149,7 +173,8 @@ class App extends Component {
         <List 
 	   todos={this.state.todos} 
 	   removeItem={this.removeItem.bind(this)}
-	   completeItem={this.completeItem.bind(this)}/>
+	   completeItem={this.completeItem.bind(this)}
+           editItem={this.editItem.bind(this)}/>
 	<Completed completed={this.state.completed} />
       </div>
     );
