@@ -9,6 +9,7 @@ class App extends Component {
     super();
     this.state = {
       value: "",
+      editValue: "",
       todos: [
         {name: "First Todo Item", isEdited: false},
         {name: "Second Todo Item", isEdited: false},
@@ -22,6 +23,10 @@ class App extends Component {
 
   updateValue(e){
     this.setState({value: e.target.value});
+  }
+
+  trackEditValue(e){
+    this.setState({editValue: e.target.value});
   }
 
   addItem(){
@@ -59,7 +64,9 @@ class App extends Component {
 	   todos={this.state.todos} 
 	   removeItem={this.removeItem.bind(this)}
 	   completeItem={this.completeItem.bind(this)}
-           editItem={this.editItem.bind(this)}/>
+           editItem={this.editItem.bind(this)}
+	   editValue={this.state.editValue}
+	   trackEditValue={this.trackEditValue.bind(this)}/>
 	<Completed completed={this.state.completed} />
       </div>
     );
