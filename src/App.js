@@ -53,6 +53,10 @@ class App extends Component {
     this.forceUpdate();
   }
 
+  saveChange(index, value){
+    console.log(index + " " + value);
+  }
+
   render() {
     return (
       <div>
@@ -66,7 +70,8 @@ class App extends Component {
 	   completeItem={this.completeItem.bind(this)}
            editItem={this.editItem.bind(this)}
 	   editValue={this.state.editValue}
-	   trackEditValue={this.trackEditValue.bind(this)}/>
+	   trackEditValue={this.trackEditValue.bind(this)}
+	   saveChange={this.saveChange.bind(this)}/>
 	<Completed completed={this.state.completed} />
       </div>
     );
