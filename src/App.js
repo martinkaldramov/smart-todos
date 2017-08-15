@@ -55,6 +55,12 @@ class App extends Component {
 
   saveChange(index, value){
     console.log(index + " " + value);
+    //this.state.todos[index] = {name: value, isEdited: "False"};
+    var todosCopy = this.state.todos.slice();
+    todosCopy[index] = {name: value, isEdited: "False"};
+    this.setState({todos: todosCopy});
+    console.log(this.state.todos[index]);
+    this.setState({editValue: ""});
   }
 
   render() {

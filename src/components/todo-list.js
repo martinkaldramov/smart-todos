@@ -7,11 +7,10 @@ class TodoItem extends Component{
         {this.props.isEdited 
 	   ? <input 
 		value={this.props.editValue}
-		onChange={this.props.trackEditValue}
-		onKeyPress={() => this.props.saveChange(this.props.id, this.props.editValue)}/> 
+		onChange={this.props.trackEditValue} />
 	   : <p>{this.props.name}</p>}
         {this.props.isEdited 
-	   ? <button>Save</button>
+	   ? <button onClick={() => this.props.saveChange(this.props.id, this.props.editValue)}>Save</button>
 	   : <button onClick={() => this.props.editItem(this.props.id)}>Edit</button>}
         <button onClick={() => this.props.removeItem(this.props.id)}>Delete</button>
         <button onClick={() => this.props.completeItem(this.props.id)}>Complete</button>
