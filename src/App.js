@@ -18,7 +18,8 @@ class App extends Component {
         {name: "Woke Up"},
 	{name: "Brushed My Teeth"}
       ]
-    }
+    };
+    this.notCompleted = this.notCompleted.bind(this);
   }
 
   updateValue(e){
@@ -48,16 +49,21 @@ class App extends Component {
     this.forceUpdate();
   }
 
+  notCompleted(index){
+    var item = this.state.completed.splice(index, 1);
+    var todosCopy = this.state.todos.splice();
+    todosCopy.unshift({name: item[0].name, isEdited: false});
+    this.setState({todos: todosCopy});
+  }
+
   editItem(index){
     this.state.todos[index].isEdited = true;
     this.forceUpdate();
   }
 
   saveChange(index, value){
-    console.log(index + " " + value);
-    //this.state.todos[index] = {name: value, isEdited: "False"};
     var todosCopy = this.state.todos.slice();
-    todosCopy[index] = {name: value, isEdited: "False"};
+    todosCopy[index] = {name: value, isEdited: false};
     this.setState({todos: todosCopy});
     console.log(this.state.todos[index]);
     this.setState({editValue: ""});
@@ -78,7 +84,9 @@ class App extends Component {
 	   editValue={this.state.editValue}
 	   trackEditValue={this.trackEditValue.bind(this)}
 	   saveChange={this.saveChange.bind(this)}/>
-	<Completed completed={this.state.completed} />
+	<Completed 
+	   completed={this.state.completed}
+	   notCompleted={this.state.notCompleted} />
       </div>
     );
   }

@@ -19,7 +19,8 @@ class Completed extends Component{
 	 {completed.map((item, index) => <CompletedItem
 	  				key={index} 
 					id={index} 
-					name={item.name} />)}
+					name={item.name}
+					notCompleted={this.props.notCompleted} />)}
       </div> 
     )
   }  
