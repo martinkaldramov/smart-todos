@@ -19,7 +19,6 @@ class App extends Component {
 	{name: "Brushed My Teeth"}
       ]
     };
-    this.notCompleted = this.notCompleted.bind(this);
   }
 
   updateValue(e){
@@ -31,6 +30,7 @@ class App extends Component {
   }
 
   addItem(){
+    this.state.resetEdit();
     console.log(this.state.value);
     this.state.todos.unshift({name: this.state.value, isEdited: false});
     this.setState({value: ""});
@@ -49,16 +49,24 @@ class App extends Component {
     this.forceUpdate();
   }
 
-  notCompleted(index){
-    var item = this.state.completed.splice(index, 1);
-    var todosCopy = this.state.todos.splice();
+  testFun(index){
+    var completedCopy = this.state.completed.slice();
+    var todosCopy = this.state.todos.slice();
+    console.log(this.state.todos);
+    var item = completedCopy.slice(index, 1);
     todosCopy.unshift({name: item[0].name, isEdited: false});
-    this.setState({todos: todosCopy});
+    this.setState({todos: todosCopy, completed: completedCopy});
   }
 
   editItem(index){
     this.state.todos[index].isEdited = true;
     this.forceUpdate();
+  }
+
+  resetEdit(){
+    var todosCopy = this.state.todos;
+    todosCopy.forEach((item) => item.isEdited = false);
+    this.setState({todos : todosCopy});
   }
 
   saveChange(index, value){
@@ -86,7 +94,7 @@ class App extends Component {
 	   saveChange={this.saveChange.bind(this)}/>
 	<Completed 
 	   completed={this.state.completed}
-	   notCompleted={this.state.notCompleted} />
+	   testFun={this.testFun.bind(this)} />
       </div>
     );
   }
