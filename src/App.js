@@ -18,9 +18,22 @@ class App extends Component {
       completed: [
         {name: "Woke Up"},
 	{name: "Brushed My Teeth"}
+      ],
+      plans: [
+        {name: "loseWeight", 
+	 todos: [
+	   {name: "Workout", isEdited: false},
+	   {name: "Eat Less", isEdited: false}	
+	]},
+	{name: 'learnWebDev', 
+	 todos: [
+	   {name: "Learn HTML", isEdited: false},
+	   {name: "Learn CSS", isEdited: false},
+	   {name: "Learn JavaScript", isEdited: false}	
+	]} 
       ]
+    }
     };
-  }
 
   updateValue(e){
     this.setState({value: e.target.value});
