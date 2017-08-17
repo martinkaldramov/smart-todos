@@ -30,7 +30,6 @@ class App extends Component {
   }
 
   addItem(){
-    this.state.resetEdit();
     console.log(this.state.value);
     this.state.todos.unshift({name: this.state.value, isEdited: false});
     this.setState({value: ""});
@@ -49,11 +48,10 @@ class App extends Component {
     this.forceUpdate();
   }
 
-  testFun(index){
+  moveInTodos(index){
     var completedCopy = this.state.completed.slice();
     var todosCopy = this.state.todos.slice();
-    console.log(this.state.todos);
-    var item = completedCopy.slice(index, 1);
+    var item = completedCopy.splice(index, 1);
     todosCopy.unshift({name: item[0].name, isEdited: false});
     this.setState({todos: todosCopy, completed: completedCopy});
   }
@@ -61,12 +59,6 @@ class App extends Component {
   editItem(index){
     this.state.todos[index].isEdited = true;
     this.forceUpdate();
-  }
-
-  resetEdit(){
-    var todosCopy = this.state.todos;
-    todosCopy.forEach((item) => item.isEdited = false);
-    this.setState({todos : todosCopy});
   }
 
   saveChange(index, value){
@@ -83,7 +75,8 @@ class App extends Component {
         <Header 
 	   value={this.state.value} 
 	   updateValue={this.updateValue.bind(this)} 
-	   addItem={this.addItem.bind(this)} />
+	   addItem={this.addItem.bind(this)}
+	   resetEdit={this.state.resetEdit} />
         <List 
 	   todos={this.state.todos} 
 	   removeItem={this.removeItem.bind(this)}
@@ -94,7 +87,7 @@ class App extends Component {
 	   saveChange={this.saveChange.bind(this)}/>
 	<Completed 
 	   completed={this.state.completed}
-	   testFun={this.testFun.bind(this)} />
+	   moveInTodos={this.moveInTodos.bind(this)} />
       </div>
     );
   }

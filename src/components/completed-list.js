@@ -5,7 +5,7 @@ class CompletedItem extends Component{
     return(
       <div>
        <s><p>{this.props.name}</p></s>
-	<button onClick={() => this.props.testFun(this.props.id)}>Not Completed</button>
+	<button onClick={() => this.props.moveInTodos(this.props.id)}>Not Completed</button>
       </div> 
     )
   }
@@ -20,7 +20,7 @@ class Completed extends Component{
 	  				key={index} 
 					id={index} 
 					name={item.name}
-					testFun={this.props.testFun} />)}
+					moveInTodos={this.props.moveInTodos} />)}
       </div> 
     )
   }  
