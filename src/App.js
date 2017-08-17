@@ -83,6 +83,10 @@ class App extends Component {
     this.setState({editValue: ""});
   }
 
+  selectPlan(e){
+    console.log(e.target.value);
+  }
+
   render() {
     return (
       <div>
@@ -91,7 +95,8 @@ class App extends Component {
 	   value={this.state.value} 
 	   updateValue={this.updateValue.bind(this)} 
 	   addItem={this.addItem.bind(this)}
-	   resetEdit={this.state.resetEdit} />
+	   resetEdit={this.state.resetEdit}
+	   selectPlan={this.selectPlan.bind(this)} />
         <List 
 	   todos={this.state.todos} 
 	   removeItem={this.removeItem.bind(this)}

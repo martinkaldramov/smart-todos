@@ -19,10 +19,10 @@ class Plan extends Component{
     return (
       <div>
 	<p>Choose your goal to generate todos plan</p>
-        <select>
+        <select onChange={() => this.props.selectPlan}>
           <option value="" disabled selected hidden>Select a Plan</option>
           <option value="loseWeight">Lose Weight</option>
-          <option value="learnWebdev">Learn WebDev</option>
+          <option value="learnWebDev">Learn WebDev</option>
           <option value="etc..">etc...</option>
         </select>
       </div>
@@ -39,7 +39,8 @@ class Header extends Component{
 	   value={this.props.value} 
 	   updateValue={this.props.updateValue} 
 	   addItem={this.props.addItem} />
-        <Plan />
+        <Plan 
+	   selectPlan={this.props.selectPlan} />
       </div>
     )
   }
