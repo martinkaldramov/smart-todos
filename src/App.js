@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NavBar from './components/nav-bar.js';
 import Header from './components/header.js';
 import List from './components/todo-list.js';
 import Completed from './components/completed-list.js';
@@ -72,6 +73,7 @@ class App extends Component {
   render() {
     return (
       <div>
+	<NavBar />
         <Header 
 	   value={this.state.value} 
 	   updateValue={this.updateValue.bind(this)} 
